@@ -257,13 +257,16 @@ function ProductList({ onHomeClick }) {
     };
 
     const handleAddToCart = (product) => {
-        dispatch(addItem(product)); 
-      
-        setAddedToCart((prevState) => ({ 
-          ...prevState, 
-          [product.name]: true, 
-        }));
+        dispatch(addItem(product));
       };
+
+    useEffect(() => {
+        const updated = {};
+        cart.forEach(item => {
+            updated[item.name] = true;
+        });
+        setAddedToCart(updated);
+    }, [cart]);
 
     const handleContinueShopping = (e) => {
         e.preventDefault();
